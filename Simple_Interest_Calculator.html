@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Interest Calculator</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>    
+</head>
+<body class="h-full grid place-items-center bg-gray-100">
+  <div id="app">
+    <section class="border-2 border-gray-400 p-12 rounded-lg shadow-xl shadow-gray-900 bg-sky-200/45 w-104">
+        <p class="text-shadow-xl text-shadow-black text-3xl font-semibold mb-4 text-center">Simple Interest Calculator</p>
+      <div class="p-5">
+        <input
+        type="number"
+        this.autofocus
+        class="py-1 indent-1 border-2 border-black focus:outline-none rounded w-full shadow-md shadow-black" 
+        v-model.number="principal" 
+        placeholder="Principal"
+        step="0.50">
+      </div>     
+      <div class="p-5">
+        <input
+        type="number" 
+        class="py-1 indent-1 border-2 border-black focus:outline-none rounded w-full shadow-md shadow-black" 
+        v-model.number="rate" 
+        placeholder="Rate"
+        step="0.05">
+      </div>      
+      <div class="p-5">
+        <input
+        type="number" 
+        class="py-1 indent-1 border-2 border-black focus:outline-none rounded w-full shadow-md shadow-black"
+        v-model.number="time"
+        placeholder="Time (Years)"
+        step="1">
+      </div>
+      <div class="p-5">
+      <button type="submit" @click.prevent="calculate" class="border-2 border-black rounded-full bg-white shadow-xl
+       shadow-black active:bg-zinc-500 active:shadow-lg focus:outline-none transition w-48 py-1 px-2 relative w-full "
+        >Calculate</button>
+      </div>
+      <div class="min-h-24 text-center">
+          <div class="rounded ">
+              <p v-if="result" class="py-8 position-bottom text-2xl font-bold relative text-center text-black">
+              Interest: <span>${{ result.toFixed(2) }}</span>
+              </p>      
+              <p v-else  class="text-2xl relative text-center"></p>
+          </div>
+      </div>
+    </section>
+  </div>
+  <script>
+    let app = {
+    data() {
+      return {
+        principal: null,
+        rate: null,
+        time: null,
+        result: null
+      };
+    },
+    computed: {
+      simpleInterest() {
+        let principal = parseFloat(this.principal);
+        let rate = parseFloat(this.rate);
+        let time = parseFloat(this.time) / 100;
+        return principal * rate * time;
+      }
+    },
+    methods: {
+      calculate() {
+        this.result = this.simpleInterest
+        // alert(this.result)
+        }
+      }
+    }
+    Vue.createApp(app).mount('#app');
+  </script>
+</body>
+</html>
